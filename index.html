@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>左湘宁 · Ashley Zuo｜数据分析与商业洞察</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f3ee;
+    --bg-warm: #ede5dc;
+    --paper: #fbf8f4;
+    --ink: #2a2422;
+    --ink-soft: #5a4f4a;
+    --ink-muted: #8a7d76;
+    --accent: #6b2737;
+    --accent-soft: #a85b6b;
+    --gold: #b08c5a;
+    --line: #d9cfc4;
+    --line-soft: #e8e0d6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Noto Sans SC', 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 15px;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+  }
+  .serif { font-family: 'Noto Serif SC', 'Cormorant Garamond', serif; }
+  .en-serif { font-family: 'Cormorant Garamond', 'Noto Serif SC', serif; font-style: italic; letter-spacing: 0.02em; }
+
+  /* Navigation */
+  nav.top {
+    position: fixed; top: 0; left: 0; right: 0;
+    padding: 18px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(247, 243, 238, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 100;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+  }
+  nav.top.scrolled { border-bottom-color: var(--line-soft); }
+  nav .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+  }
+  nav .logo span { color: var(--accent); font-style: italic; }
+  nav ul {
+    display: flex; gap: 36px; list-style: none;
+    font-size: 13px; letter-spacing: 0.05em;
+  }
+  nav ul a {
+    color: var(--ink-soft); text-decoration: none;
+    transition: color 0.2s; position: relative; padding-bottom: 4px;
+  }
+  nav ul a::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 0; height: 1px; background: var(--accent);
+    transition: width 0.3s ease;
+  }
+  nav ul a:hover { color: var(--accent); }
+  nav ul a:hover::after { width: 100%; }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    padding: 120px 48px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute;
+    top: 20%; right: -10%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(168, 91, 107, 0.08), transparent 70%);
+    border-radius: 50%; pointer-events: none;
+  }
+  .hero-text { max-width: 560px; position: relative; z-index: 2; }
+  .hero .eyebrow {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 18px; color: var(--accent);
+    margin-bottom: 24px; letter-spacing: 0.04em;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .hero .eyebrow::before {
+    content: ''; display: inline-block;
+    width: 40px; height: 1px; background: var(--accent);
+  }
+  .hero h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(48px, 6vw, 84px);
+    font-weight: 500;
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .hero h1 .accent { color: var(--accent); font-style: italic; font-family: 'Cormorant Garamond', serif; font-weight: 400; }
+  .hero .en-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-style: italic; font-weight: 300;
+    color: var(--ink-muted); margin-bottom: 36px;
+    letter-spacing: 0.05em;
+  }
+  .hero .lede {
+    font-size: 16px; line-height: 1.85;
+    color: var(--ink-soft); margin-bottom: 40px;
+    max-width: 480px;
+  }
+  .hero .tags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 44px; }
+  .hero .tag {
+    padding: 7px 16px; border: 1px solid var(--line);
+    border-radius: 100px; font-size: 12.5px;
+    color: var(--ink-soft); background: var(--paper);
+    letter-spacing: 0.02em;
+  }
+  .hero-cta { display: flex; gap: 16px; align-items: center; }
+  .btn {
+    padding: 14px 32px; border-radius: 4px;
+    font-size: 13px; letter-spacing: 0.08em;
+    text-decoration: none; transition: all 0.25s ease;
+    font-weight: 500; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary {
+    background: var(--accent); color: var(--paper);
+    border: 1px solid var(--accent);
+  }
+  .btn-primary:hover { background: var(--ink); border-color: var(--ink); }
+  .btn-ghost {
+    background: transparent; color: var(--ink); border: 1px solid var(--line);
+  }
+  .btn-ghost:hover { border-color: var(--ink); }
+
+  /* Hero visual */
+  .hero-visual {
+    position: relative;
+    height: 600px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .portrait-frame {
+    position: relative; width: 100%; max-width: 440px;
+    aspect-ratio: 4/5;
+  }
+  .portrait-bg {
+    position: absolute; inset: 20px -20px -20px 20px;
+    background: linear-gradient(135deg, var(--bg-warm), var(--paper));
+    border: 1px solid var(--line);
+  }
+  .portrait-card {
+    position: absolute; inset: 0;
+    background: linear-gradient(160deg, #f0e6dc 0%, #e8d8c8 50%, #d9c2b0 100%);
+    display: flex; flex-direction: column;
+    justify-content: space-between; padding: 36px 32px;
+    overflow: hidden;
+  }
+  .portrait-card::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(255,255,255,0.4), transparent 50%),
+      radial-gradient(circle at 70% 80%, rgba(107, 39, 55, 0.15), transparent 60%);
+    pointer-events: none;
+  }
+  .portrait-monogram {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 200px; font-weight: 300;
+    color: var(--accent); line-height: 0.9;
+    font-style: italic;
+    text-align: center;
+    margin-top: 60px;
+    text-shadow: 2px 4px 16px rgba(107, 39, 55, 0.15);
+    position: relative;
+    z-index: 1;
+  }
+  .portrait-bottom {
+    position: relative; z-index: 1;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    color: var(--ink);
+  }
+  .portrait-bottom .label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px; letter-spacing: 0.2em;
+    text-transform: uppercase; opacity: 0.7;
+    margin-bottom: 4px;
+  }
+  .portrait-bottom .value {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 14px; font-weight: 500;
+  }
+  .floating-badge {
+    position: absolute; background: var(--paper);
+    padding: 16px 22px; border: 1px solid var(--line);
+    box-shadow: 0 12px 40px rgba(42, 36, 34, 0.08);
+    z-index: 3;
+  }
+  .floating-badge.bg-1 { top: 12%; left: -10%; }
+  .floating-badge.bg-2 { bottom: 10%; right: -8%; }
+  .floating-badge .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px; font-weight: 500;
+    color: var(--accent); line-height: 1;
+  }
+  .floating-badge .desc {
+    font-size: 11px; color: var(--ink-muted);
+    margin-top: 4px; letter-spacing: 0.03em;
+  }
+
+  /* Section base */
+  section {
+    padding: 120px 48px;
+    max-width: 1280px; margin: 0 auto;
+  }
+  .section-header {
+    margin-bottom: 70px;
+    display: grid; grid-template-columns: 280px 1fr;
+    gap: 80px; align-items: end;
+  }
+  .section-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px; color: var(--gold);
+    letter-spacing: 0.3em; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-num::after {
+    content: ''; flex: 1; height: 1px;
+    background: var(--line); display: block;
+  }
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 44px; font-weight: 500;
+    line-height: 1.2; color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .section-title .en {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-weight: 400;
+    color: var(--accent); display: block;
+    font-size: 22px; margin-top: 6px;
+  }
+  .section-intro {
+    color: var(--ink-soft);
+    font-size: 15.5px; line-height: 1.9;
+    max-width: 560px;
+  }
+
+  /* About */
+  #about { background: var(--paper); max-width: none; padding-left: max(48px, calc((100% - 1280px) / 2 + 48px)); padding-right: max(48px, calc((100% - 1280px) / 2 + 48px));  }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: start;
+  }
+  .about-statement {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px; line-height: 1.8;
+    color: var(--ink); font-weight: 400;
+  }
+  .about-statement em {
+    color: var(--accent); font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+  }
+  .about-pillars { display: flex; flex-direction: column; gap: 28px; }
+  .pillar {
+    padding: 28px 0;
+    border-top: 1px solid var(--line);
+    display: grid; grid-template-columns: 60px 1fr;
+    gap: 24px; align-items: start;
+  }
+  .pillar:last-child { border-bottom: 1px solid var(--line); }
+  .pillar-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px; color: var(--accent);
+    font-style: italic; line-height: 1;
+  }
+  .pillar h4 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 18px; font-weight: 500;
+    margin-bottom: 8px; color: var(--ink);
+  }
+  .pillar p { font-size: 14px; color: var(--ink-soft); line-height: 1.75; }
+
+  /* Education */
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .edu-card {
+    background: var(--paper); padding: 40px 36px;
+    border: 1px solid var(--line-soft);
+    position: relative; transition: all 0.3s ease;
+  }
+  .edu-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 16px 48px rgba(107, 39, 55, 0.08);
+    transform: translateY(-4px);
+  }
+  .edu-card .ribbon {
+    position: absolute; top: 0; left: 36px;
+    background: var(--accent); color: var(--paper);
+    padding: 6px 14px; font-size: 11px;
+    letter-spacing: 0.15em; font-family: 'Cormorant Garamond', serif;
+    text-transform: uppercase;
+  }
+  .edu-card .school {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 26px; font-weight: 500;
+    margin-top: 36px; margin-bottom: 6px;
+    color: var(--ink);
+  }
+  .edu-card .school-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; color: var(--ink-muted);
+    font-size: 16px; margin-bottom: 20px;
+  }
+  .edu-card .meta-row {
+    display: flex; gap: 24px; flex-wrap: wrap;
+    padding: 16px 0; border-top: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line-soft);
+    margin-bottom: 20px;
+  }
+  .edu-card .meta-item .label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px; letter-spacing: 0.2em;
+    color: var(--ink-muted); text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .edu-card .meta-item .value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 500;
+    color: var(--accent);
+  }
+  .edu-card .courses-label {
+    font-size: 12px; color: var(--ink-muted);
+    letter-spacing: 0.1em; margin-bottom: 12px;
+  }
+  .edu-card .courses {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .edu-card .course {
+    font-size: 12px; padding: 5px 12px;
+    background: var(--bg); color: var(--ink-soft);
+    border-radius: 100px;
+  }
+  .edu-card ul.highlights {
+    list-style: none; margin-top: 20px;
+  }
+  .edu-card ul.highlights li {
+    font-size: 13.5px; color: var(--ink-soft);
+    padding: 6px 0 6px 18px; position: relative;
+    line-height: 1.7;
+  }
+  .edu-card ul.highlights li::before {
+    content: '◆'; color: var(--gold);
+    position: absolute; left: 0; font-size: 8px; top: 11px;
+  }
+
+  /* Experience */
+  #experience { background: var(--ink); color: var(--paper); max-width: none; padding-left: max(48px, calc((100% - 1280px) / 2 + 48px)); padding-right: max(48px, calc((100% - 1280px) / 2 + 48px)); }
+  #experience .section-title { color: var(--paper); }
+  #experience .section-title .en { color: var(--accent-soft); }
+  #experience .section-num { color: var(--gold); }
+  #experience .section-num::after { background: rgba(255, 255, 255, 0.15); }
+  #experience .section-intro { color: rgba(255, 255, 255, 0.65); }
+
+  .exp-block {
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding-top: 50px;
+  }
+  .exp-header {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; margin-bottom: 56px;
+  }
+  .exp-company {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 38px; font-weight: 500;
+    color: var(--paper); margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .exp-role {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-style: italic;
+    color: var(--accent-soft); margin-bottom: 24px;
+  }
+  .exp-meta {
+    display: flex; gap: 40px; margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .exp-meta-item .label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px; letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.45);
+    text-transform: uppercase; margin-bottom: 4px;
+  }
+  .exp-meta-item .val {
+    font-size: 14px; color: var(--paper);
+  }
+  .exp-brands { font-size: 14px; color: rgba(255, 255, 255, 0.7); line-height: 1.8; }
+  .exp-brands strong { color: var(--gold); font-weight: 500; }
+
+  .exp-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 32px; padding: 32px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    margin-bottom: 56px;
+  }
+  .exp-stat .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 56px; font-weight: 400;
+    color: var(--accent-soft); line-height: 1;
+    margin-bottom: 8px;
+  }
+  .exp-stat .num sup { font-size: 22px; vertical-align: super; }
+  .exp-stat .desc {
+    font-size: 13px; color: rgba(255, 255, 255, 0.65);
+    letter-spacing: 0.03em;
+  }
+
+  .exp-projects { display: flex; flex-direction: column; gap: 0; }
+  .proj-item {
+    display: grid; grid-template-columns: 80px 1fr;
+    gap: 32px; padding: 32px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .proj-item:last-child { border-bottom: none; }
+  .proj-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px; color: var(--gold);
+    letter-spacing: 0.2em; padding-top: 4px;
+  }
+  .proj-content h4 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 20px; font-weight: 500;
+    color: var(--paper); margin-bottom: 12px;
+  }
+  .proj-content p {
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.85; font-size: 14.5px;
+  }
+
+  /* Skills */
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--line-soft);
+    border: 1px solid var(--line-soft);
+  }
+  .skill-cat {
+    background: var(--paper); padding: 36px 32px;
+    transition: background 0.25s ease;
+  }
+  .skill-cat:hover { background: var(--bg-warm); }
+  .skill-cat-icon {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px; color: var(--accent);
+    letter-spacing: 0.2em; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .skill-cat-icon::before {
+    content: ''; width: 24px; height: 1px;
+    background: var(--accent);
+  }
+  .skill-cat h4 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px; font-weight: 500;
+    margin-bottom: 18px; color: var(--ink);
+  }
+  .skill-cat ul { list-style: none; }
+  .skill-cat ul li {
+    padding: 8px 0; border-bottom: 1px dashed var(--line-soft);
+    color: var(--ink-soft); font-size: 14px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .skill-cat ul li:last-child { border-bottom: none; }
+  .skill-cat ul li .level {
+    display: flex; gap: 3px;
+  }
+  .skill-cat ul li .level i {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--line);
+  }
+  .skill-cat ul li .level i.on { background: var(--accent); }
+
+  /* Work / Projects */
+  #work { background: var(--bg-warm); max-width: none; padding-left: max(48px, calc((100% - 1280px) / 2 + 48px)); padding-right: max(48px, calc((100% - 1280px) / 2 + 48px));}
+  .work-filter {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  .work-filter button {
+    padding: 8px 18px; border: 1px solid var(--line);
+    background: transparent; color: var(--ink-soft);
+    font-size: 13px; cursor: pointer; border-radius: 100px;
+    transition: all 0.2s ease;
+    font-family: inherit;
+  }
+  .work-filter button.active,
+  .work-filter button:hover {
+    background: var(--ink); color: var(--paper);
+    border-color: var(--ink);
+  }
+  .works-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .work-card {
+    background: var(--paper); border: 1px solid var(--line-soft);
+    overflow: hidden; transition: all 0.3s ease;
+    cursor: pointer; position: relative;
+  }
+  .work-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 56px rgba(42, 36, 34, 0.12);
+    border-color: var(--accent);
+  }
+  .work-cover {
+    aspect-ratio: 16/10;
+    background: linear-gradient(135deg, var(--bg-warm), var(--paper));
+    position: relative; overflow: hidden;
+    border-bottom: 1px solid var(--line-soft);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .work-cover svg { width: 100%; height: 100%; }
+  .work-info { padding: 24px 26px; }
+  .work-cat {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px; letter-spacing: 0.2em;
+    color: var(--accent); text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .work-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 17px; font-weight: 500;
+    color: var(--ink); margin-bottom: 8px;
+    line-height: 1.4;
+  }
+  .work-desc {
+    font-size: 13px; color: var(--ink-muted);
+    line-height: 1.7;
+  }
+  .work-meta {
+    display: flex; gap: 12px; margin-top: 14px;
+    padding-top: 14px; border-top: 1px solid var(--line-soft);
+    font-size: 11px; color: var(--ink-muted);
+  }
+  .work-meta span { display: flex; align-items: center; gap: 6px; }
+  .work-meta span::before { content: '·'; }
+  .work-meta span:first-child::before { content: ''; }
+
+  /* Contact */
+  .contact-wrap {
+    text-align: center; padding: 40px 0;
+    max-width: 720px; margin: 0 auto;
+  }
+  .contact-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; color: var(--accent);
+    font-size: 18px; margin-bottom: 20px;
+  }
+  .contact-headline {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(36px, 4.5vw, 56px);
+    line-height: 1.25; color: var(--ink);
+    margin-bottom: 36px; font-weight: 500;
+  }
+  .contact-headline em {
+    color: var(--accent); font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .contact-info {
+    display: flex; justify-content: center; gap: 48px;
+    flex-wrap: wrap; margin: 48px 0 36px;
+    padding: 32px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .contact-info .item .label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px; letter-spacing: 0.2em;
+    color: var(--ink-muted); text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .contact-info .item .val {
+    font-size: 15px; color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* Footer */
+  footer {
+    padding: 40px 48px;
+    border-top: 1px solid var(--line);
+    background: var(--paper);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+    font-size: 12px; color: var(--ink-muted);
+    font-family: 'Cormorant Garamond', serif;
+    letter-spacing: 0.1em;
+  }
+
+  /* Responsive */
+  @media (max-width: 968px) {
+    nav.top { padding: 14px 24px; }
+    nav ul { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; min-height: auto; }
+    .hero-visual { height: 480px; margin-top: 20px; }
+    section { padding: 80px 24px; }
+    .section-header { grid-template-columns: 1fr; gap: 24px; }
+    .section-title { font-size: 32px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-statement { font-size: 18px; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .exp-header { grid-template-columns: 1fr; gap: 24px; }
+    .exp-stats { grid-template-columns: 1fr; gap: 24px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .works-grid { grid-template-columns: 1fr; }
+    .floating-badge.bg-1 { left: 0; }
+    .floating-badge.bg-2 { right: 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top" id="topnav">
+  <div class="logo">A<span>·</span>Z</div>
+  <ul>
+    <li><a href="#about">关于</a></li>
+    <li><a href="#education">教育</a></li>
+    <li><a href="#experience">经历</a></li>
+    <li><a href="#skills">技能</a></li>
+    <li><a href="#work">作品</a></li>
+    <li><a href="#contact">联系</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="eyebrow">Portfolio · 2026</div>
+    <h1>左湘宁<span class="accent">.</span></h1>
+    <div class="en-name">Ashley Zuo</div>
+    <p class="lede">
+      厦门大学英语专业 + 人工智能经济学辅修生，专注消费品行业的数据分析与商业洞察。
+      以「<strong style="color:var(--accent);">语言 · 技术 · 商业</strong>」三维能力，从数据中挖掘可落地的品牌增长机会。
+    </p>
+    <div class="tags">
+      <div class="tag">数据分析</div>
+      <div class="tag">美妆市场洞察</div>
+      <div class="tag">竞品研究</div>
+      <div class="tag">用户分群</div>
+      <div class="tag">Python</div>
+      <div class="tag">LLM 应用</div>
+    </div>
+    <div class="hero-cta">
+      <a href="#work" class="btn btn-primary">查看作品 →</a>
+      <a href="#contact" class="btn btn-ghost">联系我</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="portrait-frame">
+      <div class="portrait-bg"></div>
+      <div class="portrait-card">
+        <div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:12px;letter-spacing:0.25em;color:var(--ink);opacity:0.5;text-transform:uppercase;">Data Analyst · Strategy</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--ink);opacity:0.6;margin-top:4px;">Beauty & Consumer Goods</div>
+        </div>
+        <div class="portrait-monogram">A.Z</div>
+        <div class="portrait-bottom">
+          <div>
+            <div class="label">Based in</div>
+            <div class="value">Xiamen, China</div>
+          </div>
+          <div style="text-align:right;">
+            <div class="label">Class of</div>
+            <div class="value">2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="floating-badge bg-1">
+      <div class="num">7+</div>
+      <div class="desc">Beauty Brands<br>Analyzed</div>
+    </div>
+    <div class="floating-badge bg-2">
+      <div class="num">¥70<sup>亿</sup></div>
+      <div class="desc">Group Annual<br>Revenue Scale</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <div>
+      <div class="section-num">01 — About</div>
+      <h2 class="section-title">关于我<span class="en">A complementary mind.</span></h2>
+    </div>
+    <p class="section-intro">
+      我相信最好的商业洞察来自于不同学科的交汇。语言学训练我精准沟通，
+      经济学训练我理性建模，AI 课程训练我把方法落地。
+    </p>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-statement">
+      我是<em>左湘宁</em>，一名站在「人文 / 数据 / 商业」三角点上的英语专业本科生。
+      在快消美妆行业实习期间，我服务于一家年销售额达 <em>70 亿</em> 的集团旗下七大品牌，
+      用数据回答「为什么这个 SKU 卖得不好」「哪个品类还有增长机会」这样的真问题。
+    </div>
+    <div class="about-pillars">
+      <div class="pillar">
+        <div class="pillar-num">01</div>
+        <div>
+          <h4>语言能力</h4>
+          <p>专四 92 / 雅思 7.5 / 校口译队成员。具备英文授课、商业报告撰写、跨文化即时沟通能力。</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02</div>
+        <div>
+          <h4>技术基础</h4>
+          <p>Python 数据清洗、特征工程、建模与可视化；熟悉 LLM 在舆情分析、情感识别中的工程化应用。</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">03</div>
+        <div>
+          <h4>商业理解</h4>
+          <p>从概率论、计量经济学到深度学习，构建「商业问题 → 数据建模 → 决策建议」的闭环能力。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-header">
+    <div>
+      <div class="section-num">02 — Education</div>
+      <h2 class="section-title">教育背景<span class="en">Xiamen University, 2022 – 2026.</span></h2>
+    </div>
+    <p class="section-intro">
+      在双学位训练中持续投入 40+ 学分的 AI 经济学课程，
+      使我成为兼具人文素养与量化能力的「复合型本科生」。
+    </p>
+  </div>
+
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="ribbon">Major</div>
+      <div class="school">厦门大学 · 英语专业</div>
+      <div class="school-en">Xiamen University · BA in English</div>
+      <div class="meta-row">
+        <div class="meta-item">
+          <div class="label">Period</div>
+          <div class="value">2022 – 2026</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">GPA</div>
+          <div class="value">3.7 / 4.0</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">TEM-4</div>
+          <div class="value">92</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">IELTS</div>
+          <div class="value">7.5</div>
+        </div>
+      </div>
+      <div class="courses-label">主修课程</div>
+      <div class="courses">
+        <span class="course">英语口译</span>
+        <span class="course">语言学</span>
+        <span class="course">笔译</span>
+        <span class="course">商务英语</span>
+        <span class="course">跨文化交际</span>
+        <span class="course">英汉口译</span>
+      </div>
+      <ul class="highlights">
+        <li>校英语口译队成员，胜任即时双语转换与跨文化沟通</li>
+        <li>系统训练英文阅读、写作、口头表达与跨文化沟通能力</li>
+        <li>能胜任英文授课、英文商业报告撰写与国际团队协作</li>
+      </ul>
+    </div>
+
+    <div class="edu-card">
+      <div class="ribbon" style="background:var(--gold);">Minor</div>
+      <div class="school">人工智能经济学</div>
+      <div class="school-en">Minor · AI Economics</div>
+      <div class="meta-row">
+        <div class="meta-item">
+          <div class="label">Period</div>
+          <div class="value">2022 – 2026</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">GPA</div>
+          <div class="value">3.7 / 4.0</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Score</div>
+          <div class="value">87</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Credits</div>
+          <div class="value">40+</div>
+        </div>
+      </div>
+      <div class="courses-label">核心课程</div>
+      <div class="courses">
+        <span class="course">Python 程序设计</span>
+        <span class="course">Python 与经济大数据</span>
+        <span class="course">数据挖掘</span>
+        <span class="course">概率论与数理统计</span>
+        <span class="course">深度学习与大语言模型</span>
+        <span class="course">计量经济学</span>
+        <span class="course">金融学</span>
+        <span class="course">微观经济学</span>
+        <span class="course">宏观经济学</span>
+      </div>
+      <ul class="highlights">
+        <li>构建「商业问题建模 → 数据分析 → 模型验证」跨学科能力</li>
+        <li>熟悉因果推断、供需分析与机器学习方法的结合应用</li>
+        <li>具备良好的数理基础与 Python 编程实践能力</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header">
+    <div>
+      <div class="section-num">03 — Experience</div>
+      <h2 class="section-title">实习经历<span class="en">Where strategy meets data.</span></h2>
+    </div>
+    <p class="section-intro">
+      在快消美妆集团服务多个品牌事业部，从数据中提炼可落地的运营、选品、定价与内容策略。
+    </p>
+  </div>
+
+  <div class="exp-block">
+    <div class="exp-header">
+      <div>
+        <div class="exp-company">佩莱品牌管理有限公司</div>
+        <div class="exp-role">Data Analyst, Market Research · 数据分析师</div>
+        <div class="exp-meta">
+          <div class="exp-meta-item">
+            <div class="label">Duration</div>
+            <div class="val">2026.01 – 2026.04</div>
+          </div>
+          <div class="exp-meta-item">
+            <div class="label">Industry</div>
+            <div class="val">快消 / 美妆 / 零售</div>
+          </div>
+          <div class="exp-meta-item">
+            <div class="label">Department</div>
+            <div class="val">市场调研部</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="exp-meta-item" style="margin-bottom:12px;">
+          <div class="label">Brands Covered</div>
+        </div>
+        <p class="exp-brands">
+          <strong>UnnyClub 悠宜</strong>　·　<strong>RNW 如薇</strong>　·　<strong>PIARA 佩冉</strong>　·　<strong>DPU 简初</strong>　·
+          <strong>UODO 优沃朵</strong>　·　<strong>TOCU 探色</strong>　·　<strong>JEJO 姬玖</strong>
+          <br><br>
+          集团旗下覆盖 7+ 美妆品牌矩阵，最高年销售额达 ¥70 亿人民币。
+        </p>
+      </div>
+    </div>
+
+    <div class="exp-stats">
+      <div class="exp-stat">
+        <div class="num">7<sup>+</sup></div>
+        <div class="desc">服务品牌事业部</div>
+      </div>
+      <div class="exp-stat">
+        <div class="num">20<sup>+</sup></div>
+        <div class="desc">完成开品/复盘/洞察报告</div>
+      </div>
+      <div class="exp-stat">
+        <div class="num">¥70<sup>亿</sup></div>
+        <div class="desc">服务集团年销售规模</div>
+      </div>
+    </div>
+
+    <div class="exp-projects">
+      <div class="proj-item">
+        <div class="proj-num">PROJ · 01</div>
+        <div class="proj-content">
+          <h4>运营策略支持 — 跨品牌业务诊断</h4>
+          <p>
+            负责集团旗下多个美妆品牌事业部的数据分析与战略支持，针对具体业务问题，围绕销售表现、品类趋势、竞品动态和用户需求变化，
+            运用<strong style="color:var(--gold);">数据交叉验证、漏斗分析、用户分群</strong>等方法定位问题根因，
+            面向产品部和研发部输出可落地的<em style="color:var(--accent-soft);font-style:italic;">运营、选品、定价和内容策略建议</em>。
+          </p>
+        </div>
+      </div>
+      <div class="proj-item">
+        <div class="proj-num">PROJ · 02</div>
+        <div class="proj-content">
+          <h4>业务数据看板 — 关键指标监测体系</h4>
+          <p>
+            搭建并维护多品牌业务数据看板；协助提取、清洗和分析集团核心业务数据，
+            定期追踪<strong style="color:var(--gold);">销售额、销量、价格、渠道表现、市场份额、竞争品牌动态</strong>等关键指标，
+            建立异常预警机制，第一时间识别业务波动并触发分析流程。
+          </p>
+        </div>
+      </div>
+      <div class="proj-item">
+        <div class="proj-num">PROJ · 03</div>
+        <div class="proj-content">
+          <h4>市场趋势监测 — LLM × 社媒舆情分析</h4>
+          <p>
+            定期参加线下展会调研与线上资讯搜集，运用<strong style="color:var(--gold);">大语言模型 (LLM)</strong>
+            进行社媒平台舆情数据清洗与情感分析，将外部行业变化与内部销售数据结合，
+            辅助品牌判断<em style="color:var(--accent-soft);font-style:italic;">增长机会、潜力品类与价格带布局</em>。
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <div>
+      <div class="section-num">04 — Skills</div>
+      <h2 class="section-title">核心技能<span class="en">Trilingual: Language, Code, Business.</span></h2>
+    </div>
+    <p class="section-intro">
+      技能矩阵围绕「数据科学 / 商业分析 / 沟通表达」三大支柱构建，
+      可以独立完成从原始数据到决策建议的全流程。
+    </p>
+  </div>
+
+  <div class="skills-grid">
+    <div class="skill-cat">
+      <div class="skill-cat-icon">DATA · ANALYSIS</div>
+      <h4>数据分析</h4>
+      <ul>
+        <li>Python (Pandas, NumPy)<span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+        <li>数据清洗与特征工程<span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+        <li>SQL 与数据提取<span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></li>
+        <li>业务看板搭建<span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+        <li>漏斗分析 / 用户分群<span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+        <li>计量经济学方法<span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></li>
+      </ul>
+    </div>
+
+    <div class="skill-cat">
+      <div class="skill-cat-icon">BUSINESS · STRATEGY</div>
+      <h4>商业洞察</h4>
+      <ul>
+        <li>美妆市场分析<span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+        <li>竞品研究<span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+        <li>品类趋势判断<span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+        <li>选品与定价建议<span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></li>
+        <li>消费品品牌战略<span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></li>
+        <li>跨部门沟通<span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+      </ul>
+    </div>
+
+    <div class="skill-cat">
+      <div class="skill-cat-icon">AI · LANGUAGE</div>
+      <h4>AI 与语言</h4>
+      <ul>
+        <li>LLM 应用 (舆情/情感分析)<span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+        <li>深度学习基础<span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></li>
+        <li>英语口译 (校队成员)<span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+        <li>专四 92 / 雅思 7.5<span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+        <li>商务英语 / 跨文化沟通<span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+        <li>笔译与英文写作<span class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="section-header">
+    <div>
+      <div class="section-num">05 — Selected Work</div>
+      <h2 class="section-title">代表作品<span class="en">From data to decisions.</span></h2>
+    </div>
+    <p class="section-intro">
+      以下为佩莱集团实习期间的部分代表性产出，涵盖市场洞察报告、行业复盘、开品分析与作战地图。
+    </p>
+  </div>
+
+  <div class="work-filter">
+    <button class="active" data-filter="all">全部</button>
+    <button data-filter="report">市场洞察报告</button>
+    <button data-filter="review">行业复盘</button>
+    <button data-filter="product">开品分析</button>
+    <button data-filter="map">作战地图</button>
+    <button data-filter="news">行业资讯</button>
+  </div>
+
+  <div class="works-grid" id="worksGrid">
+
+    <div class="work-card" data-cat="report">
+      <div class="work-cover">
+        <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#2c1f3a"/><stop offset="100%" stop-color="#5d4068"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="250" fill="url(#g1)"/>
+          <circle cx="320" cy="60" r="45" fill="#f0d9b5" opacity="0.4"/>
+          <circle cx="340" cy="50" r="35" fill="#f0d9b5" opacity="0.7"/>
+          <text x="30" y="100" fill="#f0d9b5" font-family="Cormorant Garamond" font-style="italic" font-size="14" letter-spacing="3">SLEEP BEAUTY</text>
+          <text x="30" y="140" fill="#fff" font-family="Noto Serif SC" font-size="26" font-weight="500">睡眠美妆</text>
+          <text x="30" y="170" fill="#fff" font-family="Noto Serif SC" font-size="26" font-weight="500">市场洞察报告</text>
+          <text x="30" y="210" fill="#f0d9b5" font-family="Cormorant Garamond" font-size="13" opacity="0.7">— 2026 / 04</text>
+        </svg>
+      </div>
+      <div class="work-info">
+        <div class="work-cat">Market Insight Report</div>
+        <div class="work-title">睡眠美妆市场洞察报告</div>
+        <div class="work-desc">围绕"夜间修护 + 助眠功效"双轨需求，洞察品类增长机会与价格带布局。</div>
+        <div class="work-meta"><span>2026.04</span><span>PPTX</span><span>洞察报告</span></div>
+      </div>
+    </div>
+
+    <div class="work-card" data-cat="report">
+      <div class="work-cover">
+        <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g2" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#6b2737"/><stop offset="100%" stop-color="#a85b6b"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="250" fill="url(#g2)"/>
+          <path d="M 280 30 Q 320 80 280 130 Q 240 80 280 30" fill="#f0d9b5" opacity="0.5"/>
+          <path d="M 320 60 Q 360 110 320 160 Q 280 110 320 60" fill="#f0d9b5" opacity="0.3"/>
+          <text x="30" y="100" fill="#f0d9b5" font-family="Cormorant Garamond" font-style="italic" font-size="14" letter-spacing="3">FRAGRANCE</text>
+          <text x="30" y="140" fill="#fff" font-family="Noto Serif SC" font-size="26" font-weight="500">香氛市场</text>
+          <text x="30" y="170" fill="#fff" font-family="Noto Serif SC" font-size="26" font-weight="500">洞察报告</text>
+          <text x="30" y="210" fill="#f0d9b5" font-family="Cormorant Garamond" font-size="13" opacity="0.7">— 2026 / 04</text>
+        </svg>
+      </div>
+      <div class="work-info">
+        <div class="work-cat">Market Insight Report</div>
+        <div class="work-title">香氛市场洞察报告</div>
+        <div class="work-desc">梳理国内香氛赛道竞争格局、调香趋势与消费者画像，输出品类入场建议。</div>
+        <div class="work-meta"><span>2026.04</span><span>PPTX</span><span>洞察报告</span></div>
+      </div>
+    </div>
+
+    <div class="work-card" data-cat="review">
+      <div class="work-cover">
+        <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g3" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#3a2820"/><stop offset="100%" stop-color="#7a5a48"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="250" fill="url(#g3)"/>
+          <g stroke="#f0d9b5" stroke-width="2" fill="none" opacity="0.5">
+            <polyline points="280,180 300,140 320,160 340,100 360,120"/>
+            <circle cx="280" cy="180" r="4" fill="#f0d9b5"/>
+            <circle cx="300" cy="140" r="4" fill="#f0d9b5"/>
+            <circle cx="320" cy="160" r="4" fill="#f0d9b5"/>
+            <circle cx="340" cy="100" r="4" fill="#f0d9b5"/>
+            <circle cx="360" cy="120" r="4" fill="#f0d9b5"/>
+          </g>
+          <text x="30" y="100" fill="#f0d9b5" font-family="Cormorant Garamond" font-style="italic" font-size="14" letter-spacing="3">JANUARY REVIEW</text>
+          <text x="30" y="140" fill="#fff" font-family="Noto Serif SC" font-size="22" font-weight="500">2026年1月</text>
+          <text x="30" y="170" fill="#fff" font-family="Noto Serif SC" font-size="22" font-weight="500">护肤·彩妆·个护复盘</text>
+          <text x="30" y="210" fill="#f0d9b5" font-family="Cormorant Garamond" font-size="13" opacity="0.7">— 2026 / 02</text>
+        </svg>
+      </div>
+      <div class="work-info">
+        <div class="work-cat">Industry Review</div>
+        <div class="work-title">2026 年 1 月护肤彩妆个护复盘</div>
+        <div class="work-desc">月度行业复盘：聚焦销售数据、热门品类与新品上市趋势，识别月度核心机会点。</div>
+        <div class="work-meta"><span>2026.02</span><span>PPTX</span><span>月度复盘</span></div>
+      </div>
+    </div>
+
+    <div class="work-card" data-cat="review">
+      <div class="work-cover">
+        <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g4" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#3a2820"/><stop offset="100%" stop-color="#7a5a48"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="250" fill="url(#g4)"/>
+          <g fill="#f0d9b5" opacity="0.6">
+            <rect x="280" y="160" width="14" height="40"/>
+            <rect x="300" y="130" width="14" height="70"/>
+            <rect x="320" y="100" width="14" height="100"/>
+            <rect x="340" y="140" width="14" height="60"/>
+            <rect x="360" y="80" width="14" height="120"/>
+          </g>
+          <text x="30" y="100" fill="#f0d9b5" font-family="Cormorant Garamond" font-style="italic" font-size="14" letter-spacing="3">FEBRUARY REVIEW</text>
+          <text x="30" y="140" fill="#fff" font-family="Noto Serif SC" font-size="22" font-weight="500">2026年2月</text>
+          <text x="30" y="170" fill="#fff" font-family="Noto Serif SC" font-size="22" font-weight="500">护肤·彩妆·个护复盘</text>
+          <text x="30" y="210" fill="#f0d9b5" font-family="Cormorant Garamond" font-size="13" opacity="0.7">— 2026 / 03</text>
+        </svg>
+      </div>
+      <div class="work-info">
+        <div class="work-cat">Industry Review</div>
+        <div class="work-title">2026 年 2 月护肤彩妆个护复盘</div>
+        <div class="work-desc">基于多渠道数据交叉验证，提炼当月品类增长动力与竞品动态。</div>
+        <div class="work-meta"><span>2026.03</span><span>PDF</span><span>月度复盘</span></div>
+      </div>
+    </div>
+
+    <div class="work-card" data-cat="product">
+      <div class="work-cover">
+        <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="250" fill="#ede5dc"/>
+          <circle cx="320" cy="125" r="60" fill="#d4b8a3"/>
+          <circle cx="320" cy="125" r="40" fill="#c19a82"/>
+          <circle cx="320" cy="125" r="20" fill="#a07a64"/>
+          <text x="30" y="100" fill="#6b2737" font-family="Cormorant Garamond" font-style="italic" font-size="14" letter-spacing="3">PRODUCT DEV.</text>
+          <text x="30" y="140" fill="#2a2422" font-family="Noto Serif SC" font-size="26" font-weight="500">颈部护理</text>
+          <text x="30" y="170" fill="#2a2422" font-family="Noto Serif SC" font-size="18" font-weight="400">开品分析</text>
+          <text x="30" y="210" fill="#8a7d76" font-family="Cormorant Garamond" font-size="13">— 2026 / 02</text>
+        </svg>
+      </div>
+      <div class="work-info">
+        <div class="work-cat">Product Development</div>
+        <div class="work-title">颈部护理 · 开品分析</div>
+        <div class="work-desc">从市场容量、竞品矩阵、价格带与功效卖点四维度评估颈部护理品类入场策略。</div>
+        <div class="work-meta"><span>2026.02</span><span>XLSX</span><span>开品</span></div>
+      </div>
+    </div>
+
+    <div class="work-card" data-cat="product">
+      <div class="work-cover">
+        <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="250" fill="#ede5dc"/>
+          <g transform="translate(280,80)">
+            <ellipse cx="40" cy="40" rx="35" ry="12" fill="#6b2737"/>
+            <rect x="20" y="35" width="40" height="10" fill="#3a2820"/>
+            <rect x="35" y="0" width="10" height="40" fill="#a85b6b"/>
+          </g>
+          <text x="30" y="100" fill="#6b2737" font-family="Cormorant Garamond" font-style="italic" font-size="14" letter-spacing="3">PRODUCT DEV.</text>
+          <text x="30" y="140" fill="#2a2422" font-family="Noto Serif SC" font-size="26" font-weight="500">染眉膏</text>
+          <text x="30" y="170" fill="#2a2422" font-family="Noto Serif SC" font-size="18" font-weight="400">开品分析</text>
+          <text x="30" y="210" fill="#8a7d76" font-family="Cormorant Garamond" font-size="13">— 2026 / 02</text>
+        </svg>
+      </div>
+      <div class="work-info">
+        <div class="work-cat">Product Development</div>
+        <div class="work-title">染眉膏 · 开品分析</div>
+        <div class="work-desc">分析眉妆赛道结构变化，定位染眉膏在年轻消费者中的渗透机会。</div>
+        <div class="work-meta"><span>2026.02</span><span>XLSX</span><span>开品</span></div>
+      </div>
+    </div>
+
+    <div class="work-card" data-cat="product">
+      <div class="work-cover">
+        <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="250" fill="#ede5dc"/>
+          <g transform="translate(290,90)">
+            <circle cx="35" cy="35" r="30" fill="#fff" stroke="#d4b8a3" stroke-width="2"/>
+            <circle cx="35" cy="35" r="22" fill="#f5e8d8"/>
+            <text x="35" y="40" text-anchor="middle" fill="#a07a64" font-family="Cormorant Garamond" font-style="italic" font-size="11">powder</text>
+          </g>
+          <text x="30" y="100" fill="#6b2737" font-family="Cormorant Garamond" font-style="italic" font-size="14" letter-spacing="3">PRODUCT DEV.</text>
+          <text x="30" y="140" fill="#2a2422" font-family="Noto Serif SC" font-size="26" font-weight="500">水散粉</text>
+          <text x="30" y="170" fill="#2a2422" font-family="Noto Serif SC" font-size="18" font-weight="400">开品 + 客诉点分析</text>
+          <text x="30" y="210" fill="#8a7d76" font-family="Cormorant Garamond" font-size="13">— 2026 / 02</text>
+        </svg>
+      </div>
+      <div class="work-info">
+        <div class="work-cat">Product Development</div>
+        <div class="work-title">水散粉 · 开品与客诉分析</div>
+        <div class="work-desc">交叉销售数据与负面评论 NLP 分析，识别水散粉品类的核心痛点与改进方向。</div>
+        <div class="work-meta"><span>2026.02</span><span>XLSX</span><span>开品 / 客诉</span></div>
+      </div>
+    </div>
+
+    <div class="work-card" data-cat="product">
+      <div class="work-cover">
+        <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="250" fill="#ede5dc"/>
+          <g transform="translate(280,90)">
+            <rect x="0" y="20" width="80" height="40" rx="8" fill="#d4b8a3"/>
+            <rect x="10" y="25" width="60" height="30" rx="4" fill="#f0d9b5"/>
+            <rect x="20" y="0" width="40" height="25" rx="3" fill="#a07a64"/>
+          </g>
+          <text x="30" y="100" fill="#6b2737" font-family="Cormorant Garamond" font-style="italic" font-size="14" letter-spacing="3">PRODUCT DEV.</text>
+          <text x="30" y="140" fill="#2a2422" font-family="Noto Serif SC" font-size="26" font-weight="500">遮瑕</text>
+          <text x="30" y="170" fill="#2a2422" font-family="Noto Serif SC" font-size="18" font-weight="400">开品分析</text>
+          <text x="30" y="210" fill="#8a7d76" font-family="Cormorant Garamond" font-size="13">— 2026 / 02</text>
+        </svg>
+      </div>
+      <div class="work-info">
+        <div class="work-cat">Product Development</div>
+        <div class="work-title">遮瑕 · 开品分析</div>
+        <div class="work-desc">梳理底妆赛道遮瑕品类的功效细分趋势，输出选品与定价建议。</div>
+        <div class="work-meta"><span>2026.02</span><span>XLSX</span><span>开品</span></div>
+      </div>
+    </div>
+
+    <div class="work-card" data-cat="product">
+      <div class="work-cover">
+        <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="250" fill="#ede5dc"/>
+          <g transform="translate(280,80)">
+            <circle cx="40" cy="40" r="28" fill="#a85b6b" opacity="0.85"/>
+            <circle cx="40" cy="40" r="20" fill="#6b2737"/>
+            <circle cx="40" cy="40" r="12" fill="#3a2820"/>
+            <text x="40" y="44" text-anchor="middle" fill="#f0d9b5" font-family="Cormorant Garamond" font-style="italic" font-size="10">韩</text>
+          </g>
+          <text x="30" y="100" fill="#6b2737" font-family="Cormorant Garamond" font-style="italic" font-size="14" letter-spacing="3">PRODUCT DEV.</text>
+          <text x="30" y="140" fill="#2a2422" font-family="Noto Serif SC" font-size="26" font-weight="500">韩系彩护</text>
+          <text x="30" y="170" fill="#2a2422" font-family="Noto Serif SC" font-size="18" font-weight="400">开品分析</text>
+          <text x="30" y="210" fill="#8a7d76" font-family="Cormorant Garamond" font-size="13">— 2026 / 03</text>
+        </svg>
+      </div>
+      <div class="work-info">
+        <div class="work-cat">Product Development</div>
+        <div class="work-title">韩系彩护 · 开品分析</div>
+        <div class="work-desc">研究 K-Beauty 在国内市场的复兴趋势，识别彩妆 + 护肤融合品类的机会。</div>
+        <div class="work-meta"><span>2026.03</span><span>XLSX</span><span>开品</span></div>
+      </div>
+    </div>
+
+    <div class="work-card" data-cat="product">
+      <div class="work-cover">
+        <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="250" fill="#ede5dc"/>
+          <g transform="translate(290,80)">
+            <ellipse cx="35" cy="40" rx="14" ry="32" fill="#6b2737"/>
+            <ellipse cx="35" cy="20" rx="10" ry="6" fill="#fff" opacity="0.8"/>
+            <circle cx="35" cy="65" r="3" fill="#f0d9b5"/>
+          </g>
+          <text x="30" y="100" fill="#6b2737" font-family="Cormorant Garamond" font-style="italic" font-size="14" letter-spacing="3">PRODUCT DEV.</text>
+          <text x="30" y="140" fill="#2a2422" font-family="Noto Serif SC" font-size="26" font-weight="500">眼部护理 2.0</text>
+          <text x="30" y="170" fill="#2a2422" font-family="Noto Serif SC" font-size="18" font-weight="400">开品分析</text>
+          <text x="30" y="210" fill="#8a7d76" font-family="Cormorant Garamond" font-size="13">— 2026 / 03</text>
+        </svg>
+      </div>
+      <div class="work-info">
+        <div class="work-cat">Product Development</div>
+        <div class="work-title">眼部护理 2.0 · 开品分析</div>
+        <div class="work-desc">迭代版眼部护理品类研究，覆盖紧致、抗皱、抗黑眼圈三大功效赛道。</div>
+        <div class="work-meta"><span>2026.03</span><span>XLSX</span><span>开品</span></div>
+      </div>
+    </div>
+
+    <div class="work-card" data-cat="product">
+      <div class="work-cover">
+        <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="250" fill="#ede5dc"/>
+          <g transform="translate(280,90)">
+            <rect x="20" y="20" width="60" height="14" rx="4" fill="#3a2820"/>
+            <polygon points="80,27 92,22 92,32" fill="#6b2737"/>
+            <line x1="20" y1="50" x2="80" y2="50" stroke="#3a2820" stroke-width="2"/>
+          </g>
+          <text x="30" y="100" fill="#6b2737" font-family="Cormorant Garamond" font-style="italic" font-size="14" letter-spacing="3">PRODUCT DEV.</text>
+          <text x="30" y="140" fill="#2a2422" font-family="Noto Serif SC" font-size="26" font-weight="500">眼线膏</text>
+          <text x="30" y="170" fill="#2a2422" font-family="Noto Serif SC" font-size="18" font-weight="400">开品分析</text>
+          <text x="30" y="210" fill="#8a7d76" font-family="Cormorant Garamond" font-size="13">— 2026 / 03</text>
+        </svg>
+      </div>
+      <div class="work-info">
+        <div class="work-cat">Product Development</div>
+        <div class="work-title">眼线膏 · 开品分析</div>
+        <div class="work-desc">分析眼线品类细分趋势，输出从配方到包装的差异化选品建议。</div>
+        <div class="work-meta"><span>2026.03</span><span>XLSX</span><span>开品</span></div>
+      </div>
+    </div>
+
+    <div class="work-card" data-cat="product">
+      <div class="work-cover">
+        <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="250" fill="#ede5dc"/>
+          <g transform="translate(285,80)">
+            <ellipse cx="20" cy="40" rx="10" ry="30" fill="#a07a64"/>
+            <ellipse cx="20" cy="15" rx="14" ry="8" fill="#f0d9b5"/>
+            <rect x="40" y="30" width="40" height="6" fill="#3a2820"/>
+            <rect x="50" y="20" width="30" height="20" fill="#6b2737"/>
+          </g>
+          <text x="30" y="100" fill="#6b2737" font-family="Cormorant Garamond" font-style="italic" font-size="14" letter-spacing="3">PRODUCT DEV.</text>
+          <text x="30" y="140" fill="#2a2422" font-family="Noto Serif SC" font-size="26" font-weight="500">化妆工具</text>
+          <text x="30" y="170" fill="#2a2422" font-family="Noto Serif SC" font-size="18" font-weight="400">开品分析</text>
+          <text x="30" y="210" fill="#8a7d76" font-family="Cormorant Garamond" font-size="13">— 2026 / 04</text>
+        </svg>
+      </div>
+      <div class="work-info">
+        <div class="work-cat">Product Development</div>
+        <div class="work-title">化妆工具 · 开品分析</div>
+        <div class="work-desc">扫描刷具、海绵、美容仪三大类工具品类，识别价格带与品牌空白机会。</div>
+        <div class="work-meta"><span>2026.04</span><span>XLSX</span><span>开品</span></div>
+      </div>
+    </div>
+
+    <div class="work-card" data-cat="product">
+      <div class="work-cover">
+        <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="250" fill="#ede5dc"/>
+          <g transform="translate(290,80)">
+            <rect x="15" y="10" width="40" height="60" rx="6" fill="#f0d9b5"/>
+            <rect x="20" y="50" width="30" height="14" fill="#a85b6b"/>
+            <text x="35" y="60" text-anchor="middle" fill="#fff" font-family="Cormorant Garamond" font-size="9" font-style="italic">primer</text>
+          </g>
+          <text x="30" y="100" fill="#6b2737" font-family="Cormorant Garamond" font-style="italic" font-size="14" letter-spacing="3">PRODUCT DEV.</text>
+          <text x="30" y="140" fill="#2a2422" font-family="Noto Serif SC" font-size="26" font-weight="500">妆前乳</text>
+          <text x="30" y="170" fill="#2a2422" font-family="Noto Serif SC" font-size="18" font-weight="400">开品分析</text>
+          <text x="30" y="210" fill="#8a7d76" font-family="Cormorant Garamond" font-size="13">— 2026 / 04</text>
+        </svg>
+      </div>
+      <div class="work-info">
+        <div class="work-cat">Product Development</div>
+        <div class="work-title">妆前乳 · 开品分析</div>
+        <div class="work-desc">梳理妆前乳品类多功效属性 (隔离、控油、提亮)，定位差异化产品定位。</div>
+        <div class="work-meta"><span>2026.04</span><span>XLSX</span><span>开品</span></div>
+      </div>
+    </div>
+
+    <div class="work-card" data-cat="map">
+      <div class="work-cover">
+        <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g5" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#1a3a3a"/><stop offset="100%" stop-color="#3a5a5a"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="250" fill="url(#g5)"/>
+          <g stroke="#f0d9b5" stroke-width="1" fill="none" opacity="0.5">
+            <line x1="270" y1="40" x2="380" y2="40"/>
+            <line x1="270" y1="80" x2="380" y2="80"/>
+            <line x1="270" y1="120" x2="380" y2="120"/>
+            <line x1="270" y1="160" x2="380" y2="160"/>
+            <line x1="270" y1="200" x2="380" y2="200"/>
+            <line x1="290" y1="20" x2="290" y2="220"/>
+            <line x1="320" y1="20" x2="320" y2="220"/>
+            <line x1="350" y1="20" x2="350" y2="220"/>
+          </g>
+          <circle cx="320" cy="120" r="6" fill="#a85b6b"/>
+          <circle cx="350" cy="80" r="6" fill="#a85b6b"/>
+          <circle cx="290" cy="160" r="6" fill="#a85b6b"/>
+          <text x="30" y="100" fill="#f0d9b5" font-family="Cormorant Garamond" font-style="italic" font-size="14" letter-spacing="3">BATTLE MAP</text>
+          <text x="30" y="140" fill="#fff" font-family="Noto Serif SC" font-size="22" font-weight="500">作战地图</text>
+          <text x="30" y="170" fill="#fff" font-family="Noto Serif SC" font-size="18" font-weight="400">— 美妆工具</text>
+          <text x="30" y="210" fill="#f0d9b5" font-family="Cormorant Garamond" font-size="13" opacity="0.7">— 2026 / 02</text>
+        </svg>
+      </div>
+      <div class="work-info">
+        <div class="work-cat">Battle Map</div>
+        <div class="work-title">作战地图 · 美妆工具</div>
+        <div class="work-desc">建立美妆工具品类的全景竞争地图，可视化各品牌在价格 × 功效维度的占位。</div>
+        <div class="work-meta"><span>2026.02</span><span>XLSX</span><span>战略地图</span></div>
+      </div>
+    </div>
+
+    <div class="work-card" data-cat="map">
+      <div class="work-cover">
+        <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g6" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#1a3a3a"/><stop offset="100%" stop-color="#3a5a5a"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="250" fill="url(#g6)"/>
+          <g transform="translate(280,80)">
+            <ellipse cx="40" cy="50" rx="22" ry="40" fill="#f0d9b5" opacity="0.5"/>
+            <ellipse cx="40" cy="50" rx="14" ry="28" fill="#a85b6b" opacity="0.6"/>
+            <circle cx="40" cy="20" r="6" fill="#f0d9b5"/>
+          </g>
+          <text x="30" y="100" fill="#f0d9b5" font-family="Cormorant Garamond" font-style="italic" font-size="14" letter-spacing="3">BATTLE MAP</text>
+          <text x="30" y="140" fill="#fff" font-family="Noto Serif SC" font-size="22" font-weight="500">淘系 · 精油</text>
+          <text x="30" y="170" fill="#fff" font-family="Noto Serif SC" font-size="18" font-weight="400">— 作战地图</text>
+          <text x="30" y="210" fill="#f0d9b5" font-family="Cormorant Garamond" font-size="13" opacity="0.7">— 2026 / 03</text>
+        </svg>
+      </div>
+      <div class="work-info">
+        <div class="work-cat">Battle Map</div>
+        <div class="work-title">作战地图 · 淘系精油</div>
+        <div class="work-desc">基于淘系销售数据搭建精油品类作战地图，定位重点突破 SKU 与品牌矩阵。</div>
+        <div class="work-meta"><span>2026.03</span><span>XLSX</span><span>战略地图</span></div>
+      </div>
+    </div>
+
+    <div class="work-card" data-cat="news">
+      <div class="work-cover">
+        <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="250" fill="#6b2737"/>
+          <g transform="translate(40,40)" stroke="#f0d9b5" stroke-width="1" opacity="0.4" fill="none">
+            <rect x="0" y="0" width="320" height="170" rx="4"/>
+            <line x1="0" y1="40" x2="320" y2="40"/>
+            <line x1="0" y1="100" x2="320" y2="100"/>
+            <line x1="160" y1="40" x2="160" y2="170"/>
+          </g>
+          <text x="30" y="100" fill="#f0d9b5" font-family="Cormorant Garamond" font-style="italic" font-size="14" letter-spacing="3" transform="translate(0,-60)">WEEKLY DIGEST</text>
+          <text x="200" y="125" text-anchor="middle" fill="#fff" font-family="Noto Serif SC" font-size="32" font-weight="500">行业资讯速递</text>
+          <text x="200" y="155" text-anchor="middle" fill="#f0d9b5" font-family="Cormorant Garamond" font-size="14" font-style="italic" opacity="0.85">News · 8 issues · 2026 Q1</text>
+        </svg>
+      </div>
+      <div class="work-info">
+        <div class="work-cat">Industry News</div>
+        <div class="work-title">每周/每日新闻速递</div>
+        <div class="work-desc">运用 LLM 进行行业新闻聚合、清洗、情感分析与可视化设计，覆盖美妆个护行业动向。</div>
+        <div class="work-meta"><span>2026.02 – 04</span><span>PNG × 8</span><span>资讯简报</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div class="contact-eyebrow">— Let's get in touch —</div>
+    <h2 class="contact-headline">期待与你<br>共同<em>开启</em>下一段对话。</h2>
+    <p style="color:var(--ink-soft); font-size:16px; line-height:1.85; max-width: 520px; margin: 0 auto;">
+      我对消费品行业的数据驱动决策、AI 在商业中的落地应用充满热情。
+      如果你正在寻找一位兼具语言、技术与商业理解的实习生 / 全职候选人，欢迎联系我。
+    </p>
+
+    <div class="contact-info">
+      <div class="item">
+        <div class="label">Email</div>
+        <div class="val">your.email@xmu.edu.cn</div>
+      </div>
+      <div class="item">
+        <div class="label">WeChat</div>
+        <div class="val">your_wechat_id</div>
+      </div>
+      <div class="item">
+        <div class="label">LinkedIn</div>
+        <div class="val">linkedin.com/in/ashleyzuo</div>
+      </div>
+      <div class="item">
+        <div class="label">Location</div>
+        <div class="val">厦门 / Xiamen</div>
+      </div>
+    </div>
+
+    <a href="mailto:your.email@xmu.edu.cn" class="btn btn-primary" style="margin-top: 8px;">发送邮件 →</a>
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 Ashley Zuo · 左湘宁</div>
+  <div>Designed & built with <span style="color:var(--accent);">♥</span> · Last updated May 2026</div>
+</footer>
+
+<script>
+  // Nav scroll effect
+  const nav = document.getElementById('topnav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
+
+  // Filter
+  const buttons = document.querySelectorAll('.work-filter button');
+  const cards = document.querySelectorAll('.work-card');
+  buttons.forEach(b => b.addEventListener('click', () => {
+    buttons.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    const filter = b.dataset.filter;
+    cards.forEach(c => {
+      if (filter === 'all' || c.dataset.cat === filter) {
+        c.style.display = '';
+      } else {
+        c.style.display = 'none';
+      }
+    });
+  }));
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('section, .work-card, .edu-card, .pillar, .proj-item, .skill-cat');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.05 });
+  revealEls.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
